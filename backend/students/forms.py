@@ -1,8 +1,11 @@
 from django import forms
-class StudentForm(forms.Form):
-    name=forms.CharField(max_length=100)
-    email=forms.EmailField()
-    age=forms.IntegerField()
-    department=forms.CharField(max_length=50)
-
-    
+from.models import Student
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model=Student
+        fields=[
+            'name',
+            'email',
+            'age',
+            'department'
+        ]
