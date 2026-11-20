@@ -3,7 +3,7 @@ from .forms import StudentForm
 from .models import Student
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-
+@login_required(login_url='login')
 def student_form(request):
 
     if request.method == 'POST':
@@ -22,7 +22,7 @@ def student_form(request):
         {'form': form}
     )
 
-
+@login_required(login_url='login')
 def student_list(request):
 
     students = Student.objects.all()
@@ -38,24 +38,23 @@ def login_page(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-
         user = authenticate(
             request,
-            username = username,
-            password = password
+            username=username,
+            password=password
         )
 
         if user is not None:
-            login(request,user)
+            login(request, user)
             return redirect('dashboard')
 
         else:
-            return render (request, "students/login.html", {
-                'error' : "Inavalid Username or password"
-            }) 
-
+            return render(request, "students/login.html", {
+                'error': "Invalid Username or Password"
+            })
 
     return render(request, 'students/login.html')
+
 
 @login_required(login_url='login')
 def dashboard(request):
