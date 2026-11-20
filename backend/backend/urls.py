@@ -6,4 +6,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.student_form, name='home'),
     path('', include('students.urls')),
+    path('students/',include('django.contrib.auth.urls')),
 ]
+
